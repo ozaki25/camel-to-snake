@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 function camelToSnake(value) {
   return value
@@ -6,6 +7,19 @@ function camelToSnake(value) {
     .join('_')
     .toLowerCase();
 }
+
+const Container = styled.div`
+  margin: 10px 15px;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 300px;
+`;
+
+const Pre = styled.pre`
+  background-color: #e5e5e5;
+`;
 
 function App() {
   const [input, setInput] = useState('');
@@ -22,11 +36,11 @@ function App() {
   };
 
   return (
-    <div>
-      <input onChange={onChange} value={input} />
-      <p>{result}</p>
+    <Container>
+      <TextArea onChange={onChange}>{input}</TextArea>
+      <Pre>{result}</Pre>
       <button onClick={onClick}>クリア</button>
-    </div>
+    </Container>
   );
 }
 
