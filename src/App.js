@@ -37,7 +37,7 @@ function App() {
 
   return (
     <Container>
-      <TextArea onChange={onChange}>{input}</TextArea>
+      <TextArea onChange={onChange} value={input} />
       <Pre>{result}</Pre>
       <button onClick={onClick}>クリア</button>
     </Container>
