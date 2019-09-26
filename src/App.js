@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+function camelToSnake(value) {
+  return value
+    .split(/(?=[A-Z])/)
+    .join('_')
+    .toLowerCase();
+}
 
 function App() {
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
+  const onChange = e => {
+    const value = e.target.value;
+    setInput(value);
+    setResult(camelToSnake(value));
+  };
+
+  const onClick = () => {
+    setInput('');
+    setResult('');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input onChange={onChange} value={input} />
+      <p>{result}</p>
+      <button onClick={onClick}>クリア</button>
     </div>
   );
 }
