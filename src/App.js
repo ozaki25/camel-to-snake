@@ -8,6 +8,10 @@ function camelToSnake(value) {
     .toLowerCase();
 }
 
+function lineToComma(value) {
+  return value.replace(/\r?\n/g, ', ');
+}
+
 const Container = styled.div`
   margin: 10px 15px;
 `;
@@ -24,10 +28,19 @@ const Pre = styled.pre`
 function App() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
-  const onChange = e => {
+  const [checked, setChecked] = useState(false);
+
+  const onChangeText = e => {
     const value = e.target.value;
     setInput(value);
-    setResult(camelToSnake(value));
+    const result = checked
+      ? lineToComma(camelToSnake(value))
+      : camelToSnake(value);
+    setResult(result);
+  };
+
+  const onChangeCheck = () => {
+    setChecked(!checked);
   };
 
   const onClick = () => {
@@ -37,9 +50,18 @@ function App() {
 
   return (
     <Container>
-      <TextArea onChange={onChange} value={input} />
+      <TextArea onChange={onChangeText} value={input} />
       <Pre>{result}</Pre>
       <button onClick={onClick}>クリア</button>
+      <label htmlFor="comma">
+        カンマ区切り
+        <input
+          id="comma"
+          type="checkbox"
+          checked={checked}
+          onChange={onChangeCheck}
+        />
+      </label>
     </Container>
   );
 }
